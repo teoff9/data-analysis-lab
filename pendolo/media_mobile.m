@@ -1,5 +1,5 @@
-function [medie_mobili, dev_std_media_mobili, m, s] = media_mobile(dati)
-    %determiniamo M come 2/3 di N
+function [medie_mobili, dev_std_media_mobili, m, s] = media_mobile(dati, fname)
+   %determiniamo M come 2/3 di N
     N = length(dati);
     M = round(2*N/3);
 
@@ -23,13 +23,8 @@ function [medie_mobili, dev_std_media_mobili, m, s] = media_mobile(dati)
     % Calcola la deviazione standard della media delle medie mobili
     s = std(dati) / (M*sqrt(K));
     
-    % Stampa i risultati
-    fprintf('Medie mobili:\n');
-    disp(medie_mobili);
-    
-    fprintf('Deviazioni standard delle medie mobili:\n');
-    disp(dev_std_media_mobili);
-    
+    %output
+    fprintf("File name %s\n", fname);
     fprintf('Media delle medie mobili: %.4f\n', m);
-    fprintf('Deviazione standard della media delle medie mobili: %.4f\n', s);
+    fprintf('Deviazione standard della media delle medie mobili: %.4f\n\n', s);
 end
