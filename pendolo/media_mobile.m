@@ -1,4 +1,8 @@
-function [medie_mobili, dev_std_media_mobili, m, s] = media_mobile(dati, fname)
+function [medie_mobili, dev_std_media_mobili, m, s] = media_mobile(dati)
+%%Funzione per determinare le singole medie mobili con dev std medie mobili
+%%dei singoli bins e con m ed s la media finale con relativa incertezza.
+    % dati: vettore di periodi
+
    %determiniamo M come 2/3 di N
     N = length(dati);
     M = round(2*N/3);
@@ -24,7 +28,6 @@ function [medie_mobili, dev_std_media_mobili, m, s] = media_mobile(dati, fname)
     s = std(dati) / (M*sqrt(K));
     
     %output
-    fprintf("File name %s\n", fname);
     fprintf('Media delle medie mobili: %.4f\n', m);
     fprintf('Deviazione standard della media delle medie mobili: %.4f\n\n', s);
 end
