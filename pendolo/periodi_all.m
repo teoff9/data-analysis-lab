@@ -6,7 +6,7 @@ function periodi_all(folder)
     ms = [];
     for i = 1:length(filename)
         full_path = strcat(folder,"/",filename(i));
-        [~, ~, m, s] = media_mobile(readmatrix(full_path), filename(i));
+        [~, ~, m, s] = media_mobile(readmatrix(full_path));
         ms = [ms; [m, s]];
     end
     T = table(filename', ms(:,1), ms(:,2));
