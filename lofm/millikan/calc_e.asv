@@ -1,4 +1,4 @@
-function [e, sigma_e] = calc_e(file_name, q_prova, delta, N)
+function e = calc_e(file_name, q_prova, delta, N)
 %CALCOLA e MINIMIZZANDO L'ERRORE
 % file_name = [Qi]
 % q_prova : carica di prova
@@ -14,16 +14,13 @@ function [e, sigma_e] = calc_e(file_name, q_prova, delta, N)
     end
     
     %trova 'e' e stampala
-    [minS, i] = min(S);
+    [min_, i] = min(S);
     e = qi(i);
-    sigma_e = sqrt( minS/( length(Q)*(length(Q)-1) ) );
-    fprintf("e is : %e +- %e", e, sigma_e);
-
+    printf("e is : %f", e):
     
     
     %plotta il grafico
     plot(qi, S);
-    hold on;
-    plot(e, minS, 'ro', 'MarkerSize', 10, 'MarkerFaceColor', 'r');
+
 
 end
