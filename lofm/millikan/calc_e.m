@@ -15,7 +15,9 @@ function [e, sigma_e] = calc_e(file_name, q_prova, delta, N)
     
     %trova 'e' e stampala
     [minS, i] = min(S);
-    e = qi(i);
+    q_min = qi(i);  %questo potrebbe essere gia' e...
+    ki = floor(Q/q_min + 0.5);
+    e = sum( Q./ ki) / length(Q);
     sigma_e = sqrt( minS/( length(Q)*(length(Q)-1) ) );
     fprintf("e is : %e +- %e", e, sigma_e);
 
