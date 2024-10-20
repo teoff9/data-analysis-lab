@@ -1,15 +1,13 @@
-function [c, sigma_c] = calc_all(file_name, f2, D, a, sigma_f2, sigma_a, sigma_D)
+function [c, sigma_c] = calc_all(file_name, f2, D, a, sigma_f2, sigma_D, sigma_a)
 %CALCOLA LA VELOCITA C MEDIA CON ERRORE ASSOCIATO CALCOLATO COME SOMMA IN
 %QUADRATURA DI MEDIA DI ERRORI SISTEMATICI E DEV STANDARD MEDIA
 % file_name = [delta_w, delta_d]
-    % Carica i dati dal file (presumibilmente il file contiene w e d)
+    % Carica i dati dal file
     data = load(file_name);
-    
-    % Supponiamo che il file contenga due colonne: w e delta_d
     delta_w = data(:, 1);  % prima colonna: valori di w
-    delta_d = data(:, 2)./1000;  % seconda colonna: valori di delta_d
+    delta_d = data(:, 2)./1000;  % seconda colonna: valori di delta_d (in mm)
     
-    % Array per i valori di c e sigma_c per ciascun set di w e delta_d
+    % Array per i valori di c e sigma_c per ciascun set di delta_w e delta_d
     N = length(delta_w);
     c_vals = zeros(N, 1);
     sigma_c_vals = zeros(N, 1);
@@ -22,10 +20,9 @@ function [c, sigma_c] = calc_all(file_name, f2, D, a, sigma_f2, sigma_a, sigma_D
     % Calcola la media delle velocità c
     c = mean(c_vals);
     
-    % Errore associato: somma in quadratura dell'errore sistematico (media degli errori)
-    % e la deviazione standard della media
-    sigma_c_sys = mean(sigma_c_vals);  % media degli errori sistematici
-    sigma_c_stat = std(c_vals) / sqrt(N);  % errore statistico (dev standard della media)
+    % Errore associato: errore sistematico (media degli errori) e la deviazione standard della media
+    sigma_c_sys = mean(sigma_c_vals);
+    sigma_c_stat = std(c_vals) / sqrt(N);
     
     % Errore totale combinato
     sigma_c = sqrt(sigma_c_sys^2 + sigma_c_stat^2);
