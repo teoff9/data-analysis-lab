@@ -27,7 +27,7 @@ function results = calc_D()
         colore2 = data(combinations.Var2{i});
         
         % Ensure ordine is a vector
-        ordini1 = colore1.ordine(:);
+        ordini1 = colore1.ordine(:); % Extract as column vector
         ordini2 = colore2.ordine(:); 
         
         % Find common ordini
@@ -41,8 +41,10 @@ function results = calc_D()
             % Generate combinations of matching rows
             for j = 1:height(rows1)
                 for k = 1:height(rows2)
-                   %fprintf("Combination: %s - %s : %f - %f\n", colore1.nome{j}, colore2.nome{k}, colore1.ordine(j), colore2.ordine(k));
-                   results = [results; calc_single_D(rows1(j, :), rows2(k, :))];
+                    % Display or process rows (example)
+                    fprintf("Combination: %s - %s : %f - %f", rows1.nome(j), rows2.nome(k), rows1.ordine(j), rows2.ordine(k));
+
+                    results = [results; calc_single_D(rows1(j, :), rows2(k, :))];
                 end
             end
         end

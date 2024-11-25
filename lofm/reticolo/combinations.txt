@@ -1,0 +1,7 @@
+giallo1,giallo2
+giallo1,rosso
+giallo2,rosso
+giallo1,verde1
+giallo2,verde1
+blu,viola
+viola,verde1

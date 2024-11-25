@@ -1,6 +1,8 @@
 function row = calc_single_D(row1, row2)
     % Initial data
     d = 3.3700*10^(-6);
+    disp(row1)
+
     % Calculate values for the row
     Righe = strcat(row1.nome, "-", row2.nome);
     Ordine = row1.ordine;
