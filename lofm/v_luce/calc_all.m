@@ -12,7 +12,7 @@ function [c, sigma_c] = calc_all(file_name)
     sigma_a = 0.005;
 
     % Carica i dati dal file
-    data = load(file_name);
+    data = load(file_name); 
     delta_w = data(:, 1);  % prima colonna: valori di w
     delta_d = data(:, 2)./1000;  % seconda colonna: valori di delta_d (in mm)
     
@@ -23,10 +23,11 @@ function [c, sigma_c] = calc_all(file_name)
     sD = zeros(N, 1);
     sa = zeros(N, 1);
     sf2 = zeros(N, 1);
+    sdeltad = zeros(N, 1);
 
     % Loop attraverso i dati e calcolo delle singole velocità e incertezze
     for i = 1:N
-        [c_vals(i), sigma_c_vals(i), sD(i), sa(i), sf2(i)] = calc_c(f2, D, delta_w(i), a, delta_d(i), sigma_D, sigma_a, sigma_f2);
+        [c_vals(i), sigma_c_vals(i), sD(i), sa(i), sf2(i), sdeltad(i)] = calc_c(f2, D, delta_w(i), a, delta_d(i), sigma_D, sigma_a, sigma_f2);
     end
     
     % Calcola la media delle velocità c
@@ -36,13 +37,14 @@ function [c, sigma_c] = calc_all(file_name)
     sD_ = mean(sD);
     sa_ = mean(sa);
     sf2_ = mean(sf2);
+    sdeltad_ = mean(sdeltad);
     sigma_c_sys = mean(sigma_c_vals);
     sigma_c_stat = std(c_vals) / sqrt(N);
     
     % Errore totale combinato
     sigma_c = sqrt(sigma_c_sys^2 + sigma_c_stat^2);
 
-    fprintf("Err D: \t%f\nErr a: \t%f\nErr f: \t%f\n", sD_, sa_, sf2_);
-    fprintf("Err sys:  %f  | Err stat:  %f\n", sigma_c_sys, sigma_c_stat);
-    fprintf("C = %f +- %f", c, sigma_c);
+    fprintf("Err D: \t%e\nErr a: \t%e\nErr f: \t%e\nErr deltad: \t%e\n", sD_, sa_, sf2_, sdeltad_);
+    fprintf("Err sys:  %f\nErr stat:  %f\n", sigma_c_sys, sigma_c_stat);
+    fprintf("C = %e +- %e\n", c, sigma_c);
 end
